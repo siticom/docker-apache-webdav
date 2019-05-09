@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  web:
+    image: apache-webdav
+    build: .
+    container_name: apache-webdav
+    environment:
+      VIRTUAL_HOST: example.com
+    volumes:
+      - $PWD/htpasswd:/htpasswd:ro
+      # - $PWD/dav.conf:/etc/apache2/sites-enabled/dav.conf:ro
+      - webdav:/webdav
+    ports:
+      - 8080:80
+
+volumes:
+  webdav:
+    driver: local
