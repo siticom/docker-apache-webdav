@@ -8,8 +8,11 @@ ENV APACHE_PID_FILE /var/run/apache2.pid
 ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_RUN_DIR /var/run/apache2
 
+ARG apache_version="2.4.29-1ubuntu4.6"
+LABEL apache_version=${apache_version}
+
 RUN apt-get update \
-    && apt-get install -y apache2 apache2-utils \
+    && apt-get install -y apache2=${apache_version} apache2-utils \
     && a2enmod dav dav_fs headers \
     && a2dissite 000-default \
     && echo TransferLog /dev/stdout >> /etc/apache2/apache2.conf \
